@@ -35,7 +35,7 @@ class Tab {
 public:
     string url;
 
-    Tab(const string url) {
+    Tab(string url) {
         this->url = url;
     }
 };
@@ -65,7 +65,7 @@ public:
         }
     }
 
-    void addTab(const string url) {
+    void addTab(string url) {
         tabs.emplace_back(url);
         updateMemoryNeeded();
     }
