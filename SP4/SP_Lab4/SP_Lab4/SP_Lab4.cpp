@@ -4,6 +4,17 @@
 
 using namespace std;
 
+const int ONE = 1;
+const int TWO = 2;
+const int THREE = 3;
+const int FOUR = 4;
+const int FIVE = 5;
+const int SIX = 6;
+const int SEVEN = 7;
+const int EIGHT = 8;
+
+
+
 class Window {
 public:
     int id;
@@ -156,7 +167,7 @@ int main() {
         cin >> CaseIndex;
         switch(CaseIndex)
         {
-            case 1:
+            case ONE:
             {
                 cout << "Введите URL вкладки, которую хотите добавить ";
                 cin >> NameOfTab;
@@ -164,7 +175,7 @@ int main() {
                 break; 
             }
                 
-            case 2:
+            case TWO:
             {
                 cout << "Введите индекс вкладки, которую хотите сделать основной: ";
                 cin >> tabIndex;
@@ -172,7 +183,7 @@ int main() {
                 break;
             }
                 
-            case 3:
+            case THREE:
             {
                 cout << "Введите индекс вкладки, которую хотите удалить ";
                 cin >> tabIndex;
@@ -180,7 +191,7 @@ int main() {
                 break;
             }
 
-            case 4:
+            case FOUR:
             {
                 cout << "Введите URL или ключевое имя вкладки, которую хотите найти ";
                 cin >> NameOfTab;
@@ -188,24 +199,27 @@ int main() {
                 break;
             }
 
-            case 5:
+            case FIVE:
             {
                 cout << "Введите новое имя пользователя ";
                 cin >> NameOfUser;
                 browser.changeUser(NameOfUser);
                 break;
             }
-            case 6:
+            case SIX:
             {
                 cout << "Затраченная память " << browser.memoryNeeded << endl;
                 break;
             }
-            case 7:
+            case SEVEN:
+            {
                 browser.show();
                 break;
-            case 8:
+            }
+            case EIGHT:
                 return 0;
             default:
+                cout << "Неправильный символ" << endl;
                 break;
         }
     }

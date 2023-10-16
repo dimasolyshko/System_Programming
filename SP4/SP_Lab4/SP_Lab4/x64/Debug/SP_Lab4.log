@@ -1,4 +1,4 @@
 ﻿  SP_Lab4.cpp
-D:\гитхаб разработки\System_Programming\SP4\SP_Lab4\SP_Lab4\SP_Lab4.cpp(62,25): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
-D:\гитхаб разработки\System_Programming\SP4\SP_Lab4\SP_Lab4\SP_Lab4.cpp(64,52): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\гитхаб разработки\System_Programming\SP4\SP_Lab4\SP_Lab4\SP_Lab4.cpp(73,25): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+D:\гитхаб разработки\System_Programming\SP4\SP_Lab4\SP_Lab4\SP_Lab4.cpp(75,52): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
   SP_Lab4.vcxproj -> D:\гитхаб разработки\System_Programming\SP4\SP_Lab4\x64\Debug\SP_Lab4.exe
