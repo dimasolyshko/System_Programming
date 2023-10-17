@@ -4,14 +4,14 @@
 
 using namespace std;
 
-const int ONE = 1;
-const int TWO = 2;
-const int THREE = 3;
-const int FOUR = 4;
-const int FIVE = 5;
-const int SIX = 6;
-const int SEVEN = 7;
-const int EIGHT = 8;
+const int InputURL = 1;
+const int InputMainTab = 2;
+const int CloseTab = 3;
+const int SearchHistory = 4;
+const int ChangeHistory = 5;
+const int MemoryNeeded = 6;
+const int ShowBrowser = 7;
+const int EXIT = 8;
 
 
 
@@ -167,7 +167,7 @@ int main() {
         cin >> CaseIndex;
         switch(CaseIndex)
         {
-            case ONE:
+            case InputURL:
             {
                 cout << "Введите URL вкладки, которую хотите добавить ";
                 cin >> NameOfTab;
@@ -175,7 +175,7 @@ int main() {
                 break; 
             }
                 
-            case TWO:
+            case InputMainTab:
             {
                 cout << "Введите индекс вкладки, которую хотите сделать основной: ";
                 cin >> tabIndex;
@@ -183,7 +183,7 @@ int main() {
                 break;
             }
                 
-            case THREE:
+            case CloseTab:
             {
                 cout << "Введите индекс вкладки, которую хотите удалить ";
                 cin >> tabIndex;
@@ -191,7 +191,7 @@ int main() {
                 break;
             }
 
-            case FOUR:
+            case SearchHistory:
             {
                 cout << "Введите URL или ключевое имя вкладки, которую хотите найти ";
                 cin >> NameOfTab;
@@ -199,24 +199,24 @@ int main() {
                 break;
             }
 
-            case FIVE:
+            case ChangeHistory:
             {
                 cout << "Введите новое имя пользователя ";
                 cin >> NameOfUser;
                 browser.changeUser(NameOfUser);
                 break;
             }
-            case SIX:
+            case MemoryNeeded:
             {
                 cout << "Затраченная память " << browser.memoryNeeded << endl;
                 break;
             }
-            case SEVEN:
+            case ShowBrowser:
             {
                 browser.show();
                 break;
             }
-            case EIGHT:
+            case EXIT:
                 return 0;
             default:
                 cout << "Неправильный символ" << endl;
