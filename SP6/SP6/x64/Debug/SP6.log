@@ -1,0 +1,3 @@
+﻿  SP6.cpp
+D:\гитхаб разработки\System_Programming\SP6\SP6\SP6.cpp(228,12): warning C4305: return: усечение из "int" в "bool"
+  SP6.vcxproj -> D:\гитхаб разработки\System_Programming\SP6\x64\Debug\SP6.exe
