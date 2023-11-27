@@ -9,7 +9,7 @@ mutex m;
 
 struct client {
     int n;
-    int clock;
+    int time;
 };
 class Clients {
 private:
@@ -51,27 +51,28 @@ public:
             client customer = ownQueue.dequeue();
             if (customer.n != -1)
             {
+                Sleep(customer.time * 1000);
                 m.lock();
                 cout << "\nТорговец " << traderID << " обслужил клиента: " << customer.n << endl << endl;
                 m.unlock();
-                Sleep(3000);
+                
             }
             else 
             {
                 customer = sharedQueue1.dequeue();
                 if (customer.n != -1) {
+                    Sleep(customer.time * 1000);
                     m.lock();
                     cout << "\nТорговец " << traderID << " помог обслужить продавцу " << traderID2 << " клиента " << customer.n << endl << endl;
                     m.unlock();
-                    Sleep(3000);
                 }
                 else {
                     customer = sharedQueue2.dequeue();
                     if (customer.n != -1) {
+                        Sleep(customer.time * 1000);
                         m.lock();
                         cout << "\nТорговец " << traderID << " помог обслужить продавцу " << traderID3 << " клиента " << customer.n << endl << endl;
                         m.unlock();
-                        Sleep(3000);
                     }
                 }
             }
@@ -88,13 +89,13 @@ int main() {
     Trader trader3(marketclients3, marketclients2, marketclients1, 3);
     int number = 0, numberOftreider = 0;
     client temp;
-    cout << "Введите колво клиентов" << endl;
+    cout << "Введите количество клиентов" << endl;
     cin >> number;
     for (int i = 1; i <= number; ++i) {
         cout << "Введите к какому продовцу пойдет клиент номер " << i << ": ";
         cin >> numberOftreider;
-        cout << "введите время";
-        cin >> temp.clock;
+        cout << "Введите время обслуживания данного клиента в секундах: ";
+        cin >> temp.time;
         temp.n = i;
         switch(numberOftreider)
         {
