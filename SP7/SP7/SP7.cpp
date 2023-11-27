@@ -5,21 +5,27 @@
 #include <windows.h>
 
 using namespace std;
+mutex m;
 
+struct client {
+    int n;
+    int clock;
+};
 class Clients {
 private:
-    queue<int> q;
+    queue<client> q;
     mutex mtx;
 
 public:
-    void enqueue(int customer) {
+    void enqueue(client customer) {
         mtx.lock();
         q.push(customer);
         mtx.unlock();
     }
 
-    int dequeue() {
-        int customer = -1;
+    client dequeue() {
+        client customer;
+        customer.n = -1;
         mtx.lock();
         if (!q.empty()) {
             customer = q.front();
@@ -42,24 +48,33 @@ public:
 
     void serveCustomers(int traderID2, int traderID3) {
         while (true) {
-            int customer = ownQueue.dequeue();
-            if (customer == -1) {
+            client customer = ownQueue.dequeue();
+            if (customer.n != -1)
+            {
+                m.lock();
+                cout << "\nТорговец " << traderID << " обслужил клиента: " << customer.n << endl << endl;
+                m.unlock();
+                Sleep(3000);
+            }
+            else 
+            {
                 customer = sharedQueue1.dequeue();
-                if (customer != -1) {
-                    cout << "\nТорговец " << traderID << " помог обслужить продавцу " << traderID2 << " клиента " << customer << endl << endl;
+                if (customer.n != -1) {
+                    m.lock();
+                    cout << "\nТорговец " << traderID << " помог обслужить продавцу " << traderID2 << " клиента " << customer.n << endl << endl;
+                    m.unlock();
                     Sleep(3000);
                 }
                 else {
                     customer = sharedQueue2.dequeue();
-                    if (customer != -1) {
-                        cout << "\nТорговец " << traderID << " помог обслужить продавцу " << traderID3 << " клиента " << customer << endl << endl;
+                    if (customer.n != -1) {
+                        m.lock();
+                        cout << "\nТорговец " << traderID << " помог обслужить продавцу " << traderID3 << " клиента " << customer.n << endl << endl;
+                        m.unlock();
                         Sleep(3000);
                     }
                 }
-                continue;
             }
-            cout << "\nТорговец " << traderID << " обслужил клиента: " << customer << endl << endl;
-            Sleep(2000);
         }
     }
 };
@@ -71,6 +86,29 @@ int main() {
     Trader trader1(marketclients1, marketclients2, marketclients3, 1);
     Trader trader2(marketclients2, marketclients1, marketclients3, 2);
     Trader trader3(marketclients3, marketclients2, marketclients1, 3);
+    int number = 0, numberOftreider = 0;
+    client temp;
+    cout << "Введите колво клиентов" << endl;
+    cin >> number;
+    for (int i = 1; i <= number; ++i) {
+        cout << "Введите к какому продовцу пойдет клиент номер " << i << ": ";
+        cin >> numberOftreider;
+        cout << "введите время";
+        cin >> temp.clock;
+        temp.n = i;
+        switch(numberOftreider)
+        {
+        case 1:
+            marketclients1.enqueue(temp);
+            break;
+        case 2:
+            marketclients2.enqueue(temp);
+            break;
+        case 3:
+            marketclients3.enqueue(temp);
+            break;
+        }
+    }
 
     thread thread1([&]() {
         trader1.serveCustomers(trader2.traderID, trader3.traderID);
@@ -83,25 +121,6 @@ int main() {
     thread thread3([&]() {
         trader3.serveCustomers(trader2.traderID, trader1.traderID);
         });
-
-    for (int i = 1; i <= 15; ++i) {
-        if (i % 6 == 1)
-        {
-            cout << "Клиент " << i << " пришел к продовцу " << trader1.traderID << endl;
-            marketclients1.enqueue(i);
-        }
-        else if (i % 6 == 2 || i % 6 == 3)
-        {
-            cout << "Клиент " << i << " пришел к продовцу " << trader2.traderID << endl;
-            marketclients2.enqueue(i);
-        }
-        else
-        {
-            cout << "Клиент " << i << " пришел к продовцу " << trader3.traderID << endl;
-            marketclients3.enqueue(i);
-        }
-        Sleep(500); 
-    }
 
     thread1.join();
     thread2.join();
